@@ -9,28 +9,29 @@ async function getGif(search){
       });
 //    console.log(res)
     
-    const gifURLs=[];
+    const gifIDs=[];
     const gif=$("<img>");
+
     
   for(let thisGif of res.data.data){
-      gifURLs.push(thisGif.url) //extract all of the image urls from the objects
+      gifIDs.push(thisGif.id) //extract all of the image urls from the objects
     }
 
-    console.log(gifURLs)
+    console.log(gifIDs)
 
-  const index = Math.floor(Math.random() * gifURLs.length);
+  const index = Math.floor(Math.random() * gifIDs.length); //pick just one index from the array
   console.log(index)
-  console.log(gifURLs[index])
-  gif.attr('src',gifURLs[index]); //gets one image source
+  console.log(gifIDs[index])
+  gif.attr('src',`https://i.giphy.com/media/${gifIDs[index]}/giphy.gif`); //gets one image source
   $('body').append(gif);
   
 }
 
 
-$('#getGif').on('click', function(e){
+$('#getGif').on('click', async function(e){
     e.preventDefault();
     console.log('')
-    getGif($('#search').val());
+    await getGif($('#search').val());
     $('#search').val=''
 });
 
